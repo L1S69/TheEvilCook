@@ -29,9 +29,11 @@ public class PlayerControler : MonoBehaviour {
 	private float SpeedCoofficient = 10f;
 
 	private bool IsDead;
+	public bool CanMove;
 	
 	void Start () 
 	{
+		CanMove = true;
 		sensitivity = 2f;
 		PlayerTransform = GetComponent<Transform>();
 		body = GetComponent<Rigidbody>();
@@ -47,7 +49,7 @@ public class PlayerControler : MonoBehaviour {
 	
 	void FixedUpdate()
 	{
-		if(!IsDead)
+		if(!IsDead && CanMove)
 		{
 			body.AddForce(direction * speed, ForceMode.VelocityChange);
 
@@ -81,7 +83,7 @@ public class PlayerControler : MonoBehaviour {
 
 	void Update () 
 	{
-		if(!IsDead)
+		if(!IsDead && CanMove)
 		{
 			h = SimpleInput.GetAxis("Horizontal") * SpeedCoofficient;
 			v = SimpleInput.GetAxis("Vertical") * SpeedCoofficient;
@@ -106,9 +108,9 @@ public class PlayerControler : MonoBehaviour {
 
 	public void Jump()
 	{
-		if(GetJump() && !IsDead)
+		if(GetJump() && !IsDead && CanMove)
 		{
-			body.velocity = new Vector2(0, jumpForce * 7);
+			body.velocity = new Vector2(0, jumpForce * 300);
 		}
 	}
 
@@ -122,6 +124,7 @@ public class PlayerControler : MonoBehaviour {
 	public void Spawn()
 	{
 		IsDead = false;
+		CanMove = true;
 		DeathOverlay.SetActive(false);
 	}
 

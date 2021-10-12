@@ -9,6 +9,7 @@ public class CookController : MonoBehaviour
     private Vector3 RNDPos;
     [SerializeField]private GameObject PlayerObject;
     [SerializeField]private Transform PlayerTransform;
+    [SerializeField]private Animator CookAnim;
     private Transform CookTransform;
     private bool IsOn;
     private RaycastHit Hit;
@@ -60,7 +61,15 @@ public class CookController : MonoBehaviour
     {
         if(col.tag == "Player")
         {
-            PlayerObject.GetComponent<PlayerControler>().Die();
+            StartCoroutine(Animate());
         }
+    }
+
+    private IEnumerator Animate()
+    {
+        PlayerObject.GetComponent<PlayerControler>().CanMove = false;
+        CookAnim.SetBool("IsAttacking", true);
+        yield return new WaitForSeconds(3);
+        PlayerObject.GetComponent<PlayerControler>().Die();
     }
 }

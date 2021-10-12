@@ -10,6 +10,8 @@ public class Spawner : MonoBehaviour
     [SerializeField]private Transform PlayerSpawn;
     [SerializeField]private Transform CookSpawn;
     [SerializeField]private Transform CameraSpawn;
+
+    [SerializeField]private Animator CookAnim;
     
     public void Respawn()
     {
@@ -17,6 +19,7 @@ public class Spawner : MonoBehaviour
         Camera.GetComponent<Transform>().position = CameraSpawn.position;
         Camera.GetComponent<Transform>().rotation = CameraSpawn.rotation;
         Cook.GetComponent<Transform>().position = CookSpawn.position;
+        CookAnim.SetBool("IsAttacking", false);
         Player.GetComponent<PlayerControler>().Spawn();
     }
 }

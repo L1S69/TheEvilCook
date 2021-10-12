@@ -19,6 +19,14 @@ public class FieldOfViewController : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider col)
+    {
+        if(col.tag == "Player")
+        {
+            Cook.StartChase();
+        }
+    }
+
     private void OnTriggerExit(Collider col)
     {
         if(col.tag == "Player")
